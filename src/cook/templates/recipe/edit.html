@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+
+<!-- head -->
+{% block head_title %}
+レシピの編集
+{% endblock %}
+
+<!-- main -->
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <form action="{% url 'cook:recipe_edit' recipe.id %}" method="post">
+      {% csrf_token %}
+      <div>
+        {{ form.name.label_tag }}<br>
+        {{ form.name }}
+      </div>
+
+      <div>
+        {{ form.description.label_tag }}<br>
+        {{ form.description }}
+      </div>
+      <button class="btn btn-primary">決定</button>
+      <input type="button" value="戻る" onClick="javascript:history.go(-1);" class="btn btn-secondary">
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+Django
+psycopg2-binary
+uvicorn
+django-allauth
+django-redis
+redis
+django-bootstrap5
+python-dotenv
+beautifulsoup4

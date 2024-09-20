@@ -1,0 +1,27 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a href="" class="navbar-brand fs-1">Cook</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-labbel="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- nav contents -->
+      <div class="collapse navbar-collapse mt-4 mt-lg-0 col-4 justify-content-lg-end" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item pe-lg-3 fs-5"><a href="{% url 'home:top' %}" class="nav-link">Topページ</a></li>
+          <li class="nav-item pe-lg-3 fs-5"><a href="{% url 'cook:recipe_list' %}" class="nav-link">Recipes</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-item pe-lg-3 fs-5"><a href="{% url 'user:my_page' %}" class="nav-link">マイページ</a></li>
+          <li class="nav-item pe-lg-3 fs-5"><a href="{% url 'cook:recipe_new' %}" class="nav-link">New Recipe</a></li>
+          <li class="nav-item fs-5"><a href="{% url 'account_logout' %}" class="nav-link">Sign Out</a></li>
+          {% else %}
+          <li class="nav-item pe-lg-3 fs-5"><a href="{% url 'account_login' %}" class="nav-link">Sign In</a></li>
+          <li class="nav-item fs-5"><a href="{% url 'account_signup' %}" class="nav-link">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

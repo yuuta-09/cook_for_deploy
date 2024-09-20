@@ -1,0 +1,53 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+<!-- head -->
+{% block head_title %}
+材料の登録
+{% endblock %}
+
+<!-- main -->
+{% block content %}
+
+<div class="container">
+  <div class="row">
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <button type="submit" name="add_form" class="btn btn-outline-primary">フォームを追加</button>
+        <button type="submit" name="remove_form" class="btn btn-outline-danger">フォームを削除</button>
+        <button type="submit" name="reset_form" class="btn btn-outline-warning">フォームをリセット</button>
+      </div>
+
+      <!-- フォームセットの表示 -->
+      {{ form.management_form }}
+      <div id="formset-container">
+        {% for form in form %}
+          <table class="mb-2">
+            <tbody>
+              <tr>
+                <td class="d-inline-block me-2">{{ form.name.label_tag }}</td>
+                <td>{{ form.name }}</td>
+              </tr>
+              <tr>
+                <td class="d-inline-block me-2">{{ form.amount.label_tag }}</td>
+                <td>{{ form.amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        {% endfor %}
+      </div>
+
+      <button type="submit" name="submit" class="btn btn-primary">決定</button>
+      <input type="button" value="戻る" onClick="javascript:history.go(-1);" class="btn btn-secondary">
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- script -->
+{% block extra_script %}
+<script src="{% static 'ingredient/js/form.js' %}"></script>
+{% endblock %}

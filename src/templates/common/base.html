@@ -1,0 +1,34 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'ja' }}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cook | {% block head_title %}{% endblock %}</title>
+
+  <!-- static file -->
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link rel="stylesheet" href="{% static 'common/css/base.css' %}">
+  {% block extra_head %}
+  {% endblock %}
+</head>
+
+<body>
+  {% include 'common/header.html' %}
+
+  <main class="main mb-sm-5 pt-5">
+    {% include 'common/messages.html' %}
+
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <script src="{% static 'common/js/jquery.min.js' %}"></script>
+  {% block extra_script %}
+  {% endblock %}
+</body>
+
+</html>

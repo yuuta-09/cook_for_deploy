@@ -1,0 +1,32 @@
+[
+  {
+    "model": "cook.recipe",
+    "pk": 1,
+    "fields": {
+      "name": "Spaghetti Bolognese",
+      "description": "A classic Italian dish with a rich meat sauce.",
+      "posted_at": "2024-09-16T10:00:00Z",
+      "user": 1
+    }
+  },
+  {
+    "model": "cook.recipe",
+    "pk": 2,
+    "fields": {
+      "name": "Chicken Curry",
+      "description": "A spicy and flavorful curry dish.",
+      "posted_at": "2024-09-16T11:00:00Z",
+      "user": 2
+    }
+  },
+  {
+    "model": "cook.recipe",
+    "pk": 3,
+    "fields": {
+      "name": "Vegetable Stir Fry",
+      "description": "A quick and healthy stir fry with seasonal vegetables.",
+      "posted_at": "2024-09-16T12:00:00Z",
+      "user": 1
+    }
+  }
+]

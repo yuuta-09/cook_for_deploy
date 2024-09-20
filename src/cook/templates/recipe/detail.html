@@ -1,0 +1,50 @@
+{% extends 'common/base.html' %}
+
+{% block head_title %}
+{{ recipe.name }}ページ
+{% endblock %}
+
+<!-- main -->
+{% block content %}
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 120px">
+      <h2 class="mb-4 fs-1">{{ recipe.name }}</h2>
+      <p class="fs-4">投稿者: {{ recipe.user }}</p>
+      <p class="fs-5">作り方:<br>{{ recipe.description | linebreaksbr }}</p>
+      <div class="col-10 col-sm-5 cok-md-2 mx-auto mx-sm-0">
+        {% if recipe.user.id == user.id %}
+          <div class="px-0 mt-5">
+            <a href="{% url 'cook:recipe_edit' recipe.id %}" class="btn btn-primary col-12 mb-2">レシピの編集</a><br>
+            <a href="{% url 'cook:ingredient_new' recipe.id %}" class="btn border-primary col-12 mb-2">材料の追加</a>
+          </div>
+          <form action="{% url 'cook:recipe_destroy' recipe.id %}" method="post" class="col-12 px-0 mb-2">
+            {% csrf_token %}
+            <input type="submit" value="削除" onclick="return confirm('本当に削除しますか？');" class="btn btn-danger col-12">
+          </form>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row" stle="margin-bottom: 120px">
+      <h2 class="mb-4 fs-1">具材</h2>
+      {% for ingredient in recipe.ingredients.all %}
+        <div class="col-10 col-md-3 col-lg-2 mb-3 border border-secondary p-3 mx-3">
+          <div class="mb-2">
+            <p class="mb-0">材料名: {{ ingredient.name }}</p>
+            <p class="mb-0">量: {{ ingredient.amount }}</p>
+          </div>
+          {% if ingredient.recipe.user.id == user.id %}
+            <a href="{% url 'cook:ingredient_edit' ingredient.id %}" class="btn btn-primary">編集</a>
+            <form action="{% url 'cook:ingredient_destroy' ingredient.id %}" class="d-inline" method="post">
+              {% csrf_token %}
+              <input type="submit" value="削除" onclick="return confirm('本当に削除しますか？');" class="btn btn-danger">
+            </form>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+  
+{% endblock %}

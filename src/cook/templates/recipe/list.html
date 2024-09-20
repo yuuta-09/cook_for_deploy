@@ -1,0 +1,28 @@
+{% extends 'common/base.html' %}
+
+{% block head_title %}
+レシピ一覧
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row mb-5">
+    {% for recipe in recipes %}
+      <div>
+        <h4><a href="{% url 'cook:recipe_detail' recipe.id %}">{{ recipe.name }}</a></h4>
+        <p>{{ recipe.description | linebreaksbr }}</p>
+        <p>
+          <a href="{% url 'cook:recipe_detail' recipe.id %}" class="btn btn-success">詳細</a>
+        </p>
+        <hr>
+      </div>
+    {% empty %}
+      <p>まだレシピが登録されていません。</p>
+    {% endfor %}
+
+    {% include 'common/pagination-button.html' %}
+  </div>
+</div>
+
+{% endblock %}

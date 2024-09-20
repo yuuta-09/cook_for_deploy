@@ -1,0 +1,40 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+<!-- head -->
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+
+<!-- main -->
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2 class="mb-5">{% trans "Sign In" %}</h2>
+
+      <p class="mb-3">{% blocktrans %}アカウント登録がお済でない場合は<a class="text-primary"
+          href="{{ signup_url }}">こちら</a>から登録してください。{% endblocktrans %}</p>
+
+      <div class="card border-white">
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          <div class="card-body col-12 col-lg-8 mx-auto">
+            {% bootstrap_form form %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+          </div>
+          <div class="text-center">
+            <button class="primaryAction btn btn-primary btn-sm" type="submit">{% trans "Sign In" %}</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

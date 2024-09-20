@@ -1,0 +1,31 @@
+{% extends 'common/base.html' %}
+
+<!-- head -->
+{% block head_title %}
+レシピの登録
+{% endblock %}
+
+<!-- main -->
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <h2>レシピ名</h2>
+      <form action="{% url 'cook:recipe_new' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.name.label_tag }}<br>
+          {{ form.name }}
+        </div>
+        <div class="mb-3">
+          {{ form.description.label_tag }}<br>
+          {{ form.description }}
+        </div>
+        <button class="btn btn-primary">決定</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

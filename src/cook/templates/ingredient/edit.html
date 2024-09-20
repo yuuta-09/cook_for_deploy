@@ -1,0 +1,32 @@
+{% extends 'common/base.html' %}
+
+<!-- head -->
+{% block head_title %}
+具材の編集
+{% endblock %}
+
+<!-- main -->
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <h2 class="mb-3">具材の編集</h2>
+    <form action="{% url 'cook:ingredient_edit' ingredient.id %}" method="post" class="d-inline-block w-auto">
+      {% csrf_token %}
+      <div class="mb-2">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+      </div>
+      <div class="mb-3">
+        {{ form.amount.label_tag }}
+        {{ form.amount }}
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">決定</button>
+        <button type="submit" class="btn btn-secondary" onclick="javascript:history.go(-1);">戻る</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
