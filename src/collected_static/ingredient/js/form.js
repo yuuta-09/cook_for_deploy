@@ -17,8 +17,6 @@ $(document).ready(function() {
         event.preventDefault(); // フォームの送信を中止
       }
     }
-
-    this.off('hover');
   })
 
   $("button[name=reset_form]").click(function(event) {
