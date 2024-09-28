@@ -171,6 +171,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 AUTH_USER_MODEL = 'auth.User'
 
 ACCOUNT_USERNAME_REQUIRED = True  # usernameの入力を必須にする
+ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = False  # email認証をなしでよくする。
 
 LOGIN_REDIRECT_URL = reverse_lazy('cook:recipe_list')  # ログイン後の遷移先を設定
