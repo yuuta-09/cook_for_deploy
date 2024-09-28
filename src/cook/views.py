@@ -100,24 +100,40 @@ class IngredientCrateView(AuthorRequiredMixin, CreateView):
         current_count = self.ingredient_form.get_num_of_forms(
             self.request.user.id
         )
+        redirect_url = reverse(
+            "cook:ingredient_new",
+            kwargs={'recipe_id': self.kwargs['recipe_id']}
+        )
+
         new_count = current_count + adjustment
         if self.ingredient_form.is_form_num_in_range(new_count):
+            # フォームの数が範囲内の場合は新たなフォームの数でセットする
             self.ingredient_form.set_num_of_forms(request.user.id, new_count)
         elif new_count > self.ingredient_form.max_form_num:
+            # フォームの数が最大数を超える場合は現状のフォーム数を維持
             self.ingredient_form.set_num_of_forms(
                 request.user.id, self.ingredient_form.max_form_num
             )
+            redirect_url = f'{redirect_url}/?msg=これ以上フォームを増やせません。'
+        elif new_count < self.ingredient_form.min_form_num:
+            # フォームの数が最小数を下回る場合はデフォルトのフォーム数をセット
+            self.ingredient_form.set_num_of_forms(
+                request.user.id, self.ingredient_form.default_form_num
+            )
+            redirect_url = f'{redirect_url}/?msg=これ以上フォームを減らせません。'
         else:
+            # フォームの数が予期しない数の場合はデフォルトのフォーム数をセット
             self.ingredient_form.set_num_of_forms(
                 request.user.id, self.ingredient_form.default_form_num
             )
         # ユーザがリロードした際に意図しないフォームの追加を防ぐためにrenderではなくredirect
-        return redirect('cook:ingredient_new', self.kwargs['recipe_id'])
+        return redirect(redirect_url)
 
     def get(self, request, *args, **kwargs):
         recipe = self.get_object()
         form_data = request.session.pop('form_data', None)
         form_class = self.get_form_class()
+        messages = []
 
         # フォームの表示
         # セッションにデータが残っている場合はフォームに表示する
@@ -137,7 +153,13 @@ class IngredientCrateView(AuthorRequiredMixin, CreateView):
                 queryset=Ingredient.objects.none()
             )
 
-        return render(request, self.template_name, {'form': formset})
+        if "msg" in self.request.GET:
+            messages.append(self.request.GET.get("msg"))
+
+        return render(request,
+                      self.template_name,
+                      {'form': formset, 'messages': messages}
+                      )
 
     def post(self, request, *args, **kwargs):
         recipe = self.get_object()
