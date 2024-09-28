@@ -11,46 +11,34 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-8 mx-auto text-center">
+    <div class="col-12 col-md-8 mx-auto">
       <h2 class="mb-5">{% trans "Sign Up" %}</h2>
 
       <p class="mb-3">アカウント登録がお済の場合は<a class="text-primary" href="{{ login_url }}">こちら</a>からログインしてください。</p>
 
       <div class="card border-white">
-        <div class="card-body mx-auto mb-4 col-12 col-md-10">
-          {% if form.errors %}
-          {% for field in form %}
-          {% for error in field.errors %}
-          <div class="alert alert-danger">
-            <strong>{{ field.label }}:</strong> {{ error }}
-          </div>
-          {% endfor %}
-          {% endfor %}
-          {% endif %}
-          <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-            {% csrf_token %}
-
-            <table class="mx-auto">
-              <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-              </tr>
-              <tr>
-                <td>{{ form.password1.label_tag }}</td>
-                <td>{{ form.password1 }}</td>
-              </tr>
-              <tr>
-                <td>{{ form.password2.label_tag }}</td>
-                <td>{{ form.password2 }}</td>
-              </tr>
-            </table>
-
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+          <strong>{{ field.label }}:</strong> {{ error }}
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          <div class="card-body col-12 col-lg-8 mx-auto">
+            {% bootstrap_form form %}
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
+          </div>
+
+          <div class="text-center">
             <button type="submit" class="btn btn-primary col-8 col-sm-5 mx-auto my-3">{% trans "Sign Up" %}</button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
 
       {% endblock %}
