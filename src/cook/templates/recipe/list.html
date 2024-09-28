@@ -11,6 +11,7 @@
     {% for recipe in recipes %}
       <div>
         <h4><a href="{% url 'cook:recipe_detail' recipe.id %}">{{ recipe.name }}</a></h4>
+        <img src="{{ recipe.get_image_url }}" alt="" style="width: 100px; height: 100px;">
         <p>{{ recipe.description | linebreaksbr }}</p>
         <p>
           <a href="{% url 'cook:recipe_detail' recipe.id %}" class="btn btn-success">詳細</a>

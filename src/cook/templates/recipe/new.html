@@ -12,8 +12,12 @@
   <div class="row">
     <div class="col-6">
       <h2>レシピ名</h2>
-      <form action="{% url 'cook:recipe_new' %}" method="post">
+      <form action="{% url 'cook:recipe_new' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <div class="mb-3">
+          {{ form.image.label_tag }}<br>
+          {{ form.image }}
+        </div>
         <div class="mb-3">
           {{ form.name.label_tag }}<br>
           {{ form.name }}

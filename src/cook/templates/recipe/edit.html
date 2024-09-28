@@ -10,8 +10,13 @@
 
 <div class="container">
   <div class="row">
-    <form action="{% url 'cook:recipe_edit' recipe.id %}" method="post">
+    <form action="{% url 'cook:recipe_edit' recipe.id %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
+      <div>
+        {{ form.image.label_tag }}<br>
+        {{ form.image }}
+      </div>
+
       <div>
         {{ form.name.label_tag }}<br>
         {{ form.name }}

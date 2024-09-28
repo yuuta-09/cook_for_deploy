@@ -7,3 +7,4 @@ redis
 django-bootstrap5
 python-dotenv
 beautifulsoup4
+Pillow

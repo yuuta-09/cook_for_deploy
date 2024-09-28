@@ -8,12 +8,16 @@ from .redis_utils import RedisHandler
 class RecipeForm(ModelForm):
     class Meta:
         model = Recipe
-        fields = ['name', 'description']
+        fields = ['image', 'name', 'description']
         labels = {
+            'image': '画像',
             'name': '料理名',
             'description': '詳細(作り方等)'
         }
         widgets = {
+            'image': forms.ClearableFileInput(attrs={
+                'class': 'form-control'
+            }),
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'autocomplete': 'off'
