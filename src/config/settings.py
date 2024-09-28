@@ -195,4 +195,4 @@ CACHES = {
 }
 
 # CSRF settings for docker
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8080"]
+CSRF_TRUSTED_ORIGINS = [os.getenv("GCE_EXTERNAL_IP", "http://localhost:8080")]
