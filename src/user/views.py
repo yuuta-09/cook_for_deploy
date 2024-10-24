@@ -18,7 +18,7 @@ class UserListView(ListView):
 
     def get_queryset(self):
         # adminユーザ以外を取得
-        return User.objects.exclude(username='admin')
+        return User.objects.exclude(is_superuser=True)
 
 class UserDetailView(DetailView):
     models = User
@@ -26,7 +26,11 @@ class UserDetailView(DetailView):
     template_name = 'user/detail.html'
 
     def get_object(self):
-        return get_object_or_404(User, id=self.kwargs['pk'])
+        # adminユーザだったら404を返す
+        user = get_object_or_404(User, id=self.kwargs['pk'])
+        if user.is_superuser:
+            return render(self.request, '404.html')
+        return user
 
     # ユーザとユーザのレシピをパラメータとして渡す
     def get_context_data(self, **kwargs):
