@@ -10,16 +10,7 @@ from user.mixins import UserPermissionMixin
 
 
 # Create your views here.
-class MyPageView(LoginRequiredMixin, ListView):
-    models = Recipe
-    context_object_name = 'recipes'
-    template_name = 'user/my-page.html'
-    paginate_by = 5
-
-    def get_queryset(self):
-        return Recipe.objects.filter(user=self.request.user)
-
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(ListView):
     models = User
     context_object_name = 'users'
     template_name = 'user/list.html'
@@ -28,7 +19,7 @@ class UserListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return User.objects.all()
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     models = User
     context_object_name = 'user'
     template_name = 'user/detail.html'
