@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.http import Http404
 
 from cook.models import Recipe
 from user.mixins import UserPermissionMixin
@@ -16,9 +17,10 @@ class UserListView(ListView):
     template_name = 'user/list.html'
     paginate_by = 5
 
+    # superuser以外のuser一覧を返す
     def get_queryset(self):
-        # adminユーザ以外を取得
         return User.objects.exclude(is_superuser=True)
+
 
 class UserDetailView(DetailView):
     models = User
@@ -29,7 +31,7 @@ class UserDetailView(DetailView):
         # adminユーザだったら404を返す
         user = get_object_or_404(User, id=self.kwargs['pk'])
         if user.is_superuser:
-            return render(self.request, '404.html')
+            raise Http404
         return user
 
     # ユーザとユーザのレシピをパラメータとして渡す
