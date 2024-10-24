@@ -35,7 +35,7 @@ class IngredientAdmin(admin.ModelAdmin):
     list_display = ["name", "amount"]
     list_filter = ["recipe"]
     search_fields = ["name"]
-    readonly_fields = ("recipe")
+    readonly_fields = ["recipe"]
     fieldsets = [
         (
             None,
