@@ -17,7 +17,8 @@ class UserListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return User.objects.all()
+        # adminユーザ以外を取得
+        return User.objects.exclude(username='admin')
 
 class UserDetailView(DetailView):
     models = User
