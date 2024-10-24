@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 from cook.models import Recipe
-from cook.mixins import UserPermissionMixin
+from user.mixins import UserPermissionMixin
 
 
 # Create your views here.
