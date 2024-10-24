@@ -15,9 +15,12 @@ class UserListView(ListView):
     template_name = 'user/list.html'
     paginate_by = 5
 
-    # superuser以外のuser一覧を返す
+    # 現在ログイン中のユーザがsuperuserでない場合はsuperuser以外のuser一覧を返す
     def get_queryset(self):
-        return User.objects.exclude(is_superuser=True)
+        if not self.request.user.is_superuser:
+            return User.objects.exclude(is_superuser=True)
+
+        return User.objects.all()
 
 
 class UserDetailView(DetailView):
@@ -26,9 +29,9 @@ class UserDetailView(DetailView):
     template_name = 'user/detail.html'
 
     def get_object(self):
-        # adminユーザだったら404を返す
+        # 現在ログイン中のユーザがsuperuserでない場合はadminユーザだったら404を返す
         user = get_object_or_404(User, id=self.kwargs['pk'])
-        if user.is_superuser:
+        if user.is_superuser and not self.request.user.is_superuser:
             raise Http404
         return user
 
