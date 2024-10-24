@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_KEY')
 
-if os.getenv('DJANGO_DEBUG', True).lower() == 'false':
+if os.getenv('DJANGO_DEBUG', 'true').lower() == 'false':
     DEBUG = False
 else:
     DEBUG = True
