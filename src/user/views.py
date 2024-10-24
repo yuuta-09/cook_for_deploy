@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.http import Http404
 
 from cook.models import Recipe
